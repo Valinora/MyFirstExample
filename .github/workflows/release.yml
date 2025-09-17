@@ -1,0 +1,21 @@
+name: Build Release
+on:
+  push:
+    branches: ["main", "ci"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install Deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y -f build-essential g++ cmake
+      - name: Build
+        run: |
+          make clean && make
+    
